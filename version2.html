@@ -232,7 +232,7 @@ const clearBody=document.createElement('div');clearBody.innerHTML='<p>Clear the 
 const clearDialog=modal('v2clearDialog','Clear answers',clearBody);tool('v2clear','♲','Clear answers',()=>clearDialog.showModal());$('v2confirmClear').onclick=()=>{snapshotAction('clear page',page.fields);for(const f of page.fields){delete state.values[f.id];delete state.statuses[f.id];}save();renderOverlays();renderEditor();buildCompanion();clearDialog.close();};
 tool('v2tools','⋯','Activity tools',openFocus);
 const counter=document.createElement('span');counter.id='v2counter';bar.append(counter);tool('v2previous','‹','Previous pages',()=>$('prev').click());tool('v2next','›','Next pages',()=>$('next').click());
-const savedScreen=document.createElement('section');savedScreen.id='v2closed';savedScreen.hidden=true;savedScreen.innerHTML='<div><p class="eyebrow">YOUR BOOKSHELF · VERSION 2</p><h1>Start the conversation</h1><p id="v2savedMessage">Your work is saved on this device.</p><button id="v2resume">Open book</button><a href="../">Open original version</a></div>';document.body.append(savedScreen);
+const savedScreen=document.createElement('section');savedScreen.id='v2closed';savedScreen.hidden=true;savedScreen.innerHTML='<div><p class="eyebrow">YOUR BOOKSHELF · VERSION 2</p><h1>Start the conversation</h1><p id="v2savedMessage">Your work is saved on this device.</p><button id="v2resume">Open book</button><a href="./">Open original version</a></div>';document.body.append(savedScreen);
 tool('v2saveClose','×','Save & close',()=>{save();$('audio').pause();stopCapture();$('v2savedMessage').textContent=storageOK?'Your work is saved on this device.':'Storage is unavailable. Reopen and export your answers before closing this browser tab.';savedScreen.hidden=false;bar.inert=true;$('stage').inert=true;$('v2resume').focus();});$('v2resume').onclick=()=>{savedScreen.hidden=true;bar.inert=false;$('stage').inert=false;fit();};
 for(let [id,label,dir] of [['v2edgeBack','Previous pages',-1],['v2edgeNext','Next pages',1]]){let b=button(dir<0?'‹':'›',()=>turnSpread(dir));b.id=id;b.className='edgeTurn';b.setAttribute('aria-label',label);document.body.append(b);}
 const media=modal('v2media','Listening audio · elevenlabs.io');media.classList.add('floatingMedia');media.append($('audioBox'));media.addEventListener('close',()=>$('audio').pause());$('audio').addEventListener('play',()=>{if(!media.open)media.show();});
@@ -244,4 +244,5 @@ const v2update=updateReader;updateReader=function(){v2update();updateV2();};
 document.body.classList.add('bookshelf-v2');setPanelHidden(true);if(!spreadMode)$('spreadToggle').click();fitMode='page';fit();updateV2();
 
 const v2fit=fit;fit=function(){v2fit();const total=$('page').offsetWidth+(spreadMode?companion.offsetWidth+4:0);const st=$('stage'),css=getComputedStyle(st);st.style.justifyContent=total>st.clientWidth-parseFloat(css.paddingLeft)-parseFloat(css.paddingRight)?'flex-start':'center';};fit();
+
 </script></body></html>
